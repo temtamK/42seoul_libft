@@ -6,7 +6,7 @@
 /*   By: taemkim <taemkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 21:33:40 by taemkim           #+#    #+#             */
-/*   Updated: 2020/11/29 16:15:14 by taemkim          ###   ########.fr       */
+/*   Updated: 2020/12/02 20:06:36 by taemkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_splitdup(const char *str, char c)
 
 char	**ft_splitfree(char **base_split, size_t j)
 {
-	while (j > 0)
+	while (j >= 0)
 	{
 		free(base_split[j]);
 		j--;
@@ -100,6 +100,6 @@ char	**ft_split(const char *s, char c)
 			j++;
 		}
 	}
-	best_split[j] = NULL;
+	best_split[j] = '\0';
 	return (best_split);
 }
