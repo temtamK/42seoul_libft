@@ -6,7 +6,7 @@
 /*   By: taemkim <taemkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 21:33:40 by taemkim           #+#    #+#             */
-/*   Updated: 2020/12/02 20:06:36 by taemkim          ###   ########.fr       */
+/*   Updated: 2020/12/09 20:16:29 by taemkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,15 @@ char	*ft_splitdup(const char *str, char c)
 	return (word);
 }
 
-char	**ft_splitfree(char **base_split, size_t j)
+char	**ft_splitfree(char **base_split)
 {
-	while (j >= 0)
+	size_t	i;
+
+	i = 0;
+	while (base_split[i])
 	{
-		free(base_split[j]);
-		j--;
+		free(base_split[i]);
+		i++;
 	}
 	free(base_split);
 	return (NULL);
@@ -81,12 +84,11 @@ char	**ft_split(const char *s, char c)
 	size_t	i;
 	size_t	j;
 
-	if (!s || !c)
+	if (!s || (!s && !c))
 		return (NULL);
 	i = 0;
 	j = 0;
-	if (!(best_split = (char **)malloc((ft_count_words(s, c) + 1)\
-					* sizeof(char *))))
+	if (!(best_split = malloc((ft_count_words(s, c) + 1) * sizeof(char *))))
 		return (NULL);
 	while (s[i])
 	{
@@ -95,11 +97,11 @@ char	**ft_split(const char *s, char c)
 		while (s[i] != c && s[i])
 		{
 			if (!(best_split[j] = ft_splitdup(s + i, c)))
-				return (ft_splitfree(best_split, j));
+				return (ft_splitfree(best_split));
 			i += ft_splitlen(s + i, c);
 			j++;
 		}
 	}
-	best_split[j] = '\0';
+	best_split[j] = NULL;
 	return (best_split);
 }
